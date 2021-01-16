@@ -18,7 +18,16 @@ class Tclient():
         for tweet in Cursor(self.twitter_client.user_timeline, id=self.twitter_user).items(num_tweets):
             tweets.append(tweet)
         return tweets
-
+    def get_friend_list(self, num_friends=2):
+        friend_list =[]
+        for friend in Cursor(self.twitter_client.friends, id=self.twitter_user).items(num_friends):
+            friend_list.append(friend)
+        return friend_list
+    def get_home_timeline_tweets(self, nums_tweets):
+        home_timeline_tweets = []
+        for tweet in Cursor(self.twitter_client.home_timeline, id=self.twitter_user).items(nums_tweets):
+            home_timeline_tweets.append(tweet)
+        return home_timeline_tweets
 class TAuthenticator():
     
     @staticmethod
@@ -73,6 +82,8 @@ if __name__ == "__main__":
 
     twitter_c = Tclient('elonmusk')
     print(twitter_c.get_user_timeline_tweets(1))
+    print('~~~~~~~~~~~~~~~~~~')
+    print(twitter_c.get_friend_list())
     # t_streamer = TwitterStreamer()
     # t_streamer.stream_tweets(ftf_name, ind_list)
 
